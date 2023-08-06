@@ -67,3 +67,11 @@ FROM
 WHERE CHAR_LENGTH(content) > 15;
 ```
 
+### 第六题
+
+[1378. 使用唯一标识码替换员工ID](https://leetcode.cn/problems/replace-employee-id-with-the-unique-identifier/)
+
+```sql
+select eu.unique_id,e.name from Employees e left join  EmployeeUNI eu on e.id = eu.id;
+```
+
