@@ -229,5 +229,30 @@ group by contest_id
 order by percentage DESC, contest_id
 ```
 
+### 第十八题
+
+[1211. 查询结果的质量和占比](https://leetcode.cn/problems/queries-quality-and-percentage/)
+
+```sql
+select query_name,round(AVG(rating  / position),2) as quality,ROUND(SUM(IF(rating < 3, 1, 0)) * 100 / COUNT(*), 2) as poor_query_percentage
+from Queries
+group by query_name
+```
+
+### 第十九题
+
+[1193. 每月交易 I](https://leetcode.cn/problems/monthly-transactions-i/)
+
+```sql
+select 
+	DATE_FORMAT(trans_date, '%Y-%m') AS month, 
+	country, count(*) as trans_count,
+	sum(if(state = 'approved',1,0)) as approved_count,
+	sum(amount) trans_total_amount,
+	sum(case when state = 'approved' then amount else 0 end) as approved_total_amount 
+from Transactions
+group by DATE_FORMAT(trans_date, '%Y-%m'),country
+```
+
 
 
