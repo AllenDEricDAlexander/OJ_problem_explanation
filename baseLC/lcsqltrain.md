@@ -186,5 +186,48 @@ GROUP BY
     s.user_id
 ```
 
+### 第十四题
+
+[620. 有趣的电影](https://leetcode.cn/problems/not-boring-movies/)
+
+```sql
+select * 
+from cinema
+where description != 'boring' and id % 2 =1
+order by rating DESC
+```
+
+### 第十五题
+
+[1251. 平均售价](https://leetcode.cn/problems/average-selling-price/)
+
+```sql
+select p.product_id ,round(sum(u.units * p.price)/sum(u.units),2) as average_price 
+from Prices  as p left join UnitsSold  as u 
+on p.product_id = u.product_id and u.purchase_date >= p.start_date and u.purchase_date <= end_date
+group by product_id
+```
+
+### 第十六题
+
+[1075. 项目员工 I](https://leetcode.cn/problems/project-employees-i/)
+
+```sql
+select project_id  , round(sum(experience_years)/count(*),2) as average_years 
+from Project LEFT JOIN Employee on Project.employee_id  = Employee.employee_id
+group by project_id  
+```
+
+### 第十七题
+
+[1633. 各赛事的用户注册率](https://leetcode.cn/problems/percentage-of-users-attended-a-contest/)
+
+```sql
+select contest_id ,round(count(*)/(select count(*) from users) * 100,2) as percentage  
+from register left join users on users.user_id = register.user_id
+group by contest_id
+order by percentage DESC, contest_id
+```
+
 
 
