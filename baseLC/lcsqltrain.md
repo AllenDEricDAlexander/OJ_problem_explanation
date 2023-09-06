@@ -254,5 +254,37 @@ from Transactions
 group by DATE_FORMAT(trans_date, '%Y-%m'),country
 ```
 
+### 第二十题
+
+[1174. 即时食物配送 II](https://leetcode.cn/problems/immediate-food-delivery-ii/)
+
+```sql
+select round (
+    sum(order_date = customer_pref_delivery_date) * 100 /
+    count(*),
+    2
+) as immediate_percentage
+from Delivery
+where (customer_id, order_date) in (
+    select customer_id, min(order_date)
+    from delivery
+    group by customer_id
+)
+```
+
+### 第二十一题
+
+[550. 游戏玩法分析 IV](https://leetcode.cn/problems/game-play-analysis-iv/)
+
+```sql
+select round(avg(a.event_date is not null), 2) fraction
+from 
+    (select player_id, min(event_date) as login
+    from activity
+    group by player_id) p 
+left join activity a 
+on p.player_id=a.player_id and datediff(a.event_date, p.login)=1
+```
+
 
 
