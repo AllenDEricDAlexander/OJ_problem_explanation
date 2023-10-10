@@ -318,5 +318,21 @@ left join activity a
 on p.player_id=a.player_id and datediff(a.event_date, p.login)=1
 ```
 
+### 第二十四题
+
+[2356. 每位教师所教授的科目种类的数量](https://leetcode.cn/problems/number-of-unique-subjects-taught-by-each-teacher/)
+
+```sql
+select teacher_id ,count(distinct subject_id ) as cnt from Teacher group by teacher_id;
+```
+
+### 第二十五题
+
+[596. 超过5名学生的课](https://leetcode.cn/problems/classes-more-than-5-students/)
+
+```sql
+select class from courses group by class having(count(student)) > 4
+```
+
 
 
