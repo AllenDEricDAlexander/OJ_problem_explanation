@@ -334,5 +334,13 @@ select teacher_id ,count(distinct subject_id ) as cnt from Teacher group by teac
 select class from courses group by class having(count(student)) > 4
 ```
 
+### 第二十六题
+
+[1729. 求关注者的数量](https://leetcode.cn/problems/find-followers-count/)
+
+```sql
+select user_id , count(*) as followers_count from followers group by user_id order by user_id
+```
+
 
 
