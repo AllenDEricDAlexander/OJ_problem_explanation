@@ -342,5 +342,23 @@ select class from courses group by class having(count(student)) > 4
 select user_id , count(*) as followers_count from followers group by user_id order by user_id
 ```
 
+### 第二十七题
 
+[1141. 查询近30天活跃用户数](https://leetcode.cn/problems/user-activity-for-the-past-30-days-i/)
+
+```sql
+select activity_date  as day , count(distinct user_id) as active_users  from Activity where activity_date  >= DATE_SUB('2019-07-27', INTERVAL 29 DAY) AND activity_date <= '2019-07-27' group by activity_date
+```
+
+### 第二十八题
+
+[1084. 销售分析III](https://leetcode.cn/problems/sales-analysis-iii/)
+
+```sql
+select p.product_id, product_name
+from product p join sales s
+on p.product_id = s.product_id
+group by product_id
+having min(sale_date) >= '2019-01-01' and max(sale_date) <= '2019-03-31';
+```
 
