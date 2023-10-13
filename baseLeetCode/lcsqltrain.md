@@ -362,3 +362,16 @@ group by product_id
 having min(sale_date) >= '2019-01-01' and max(sale_date) <= '2019-03-31';
 ```
 
+### 第二十九题
+
+[619. 只出现一次的最大数字](https://leetcode.cn/problems/biggest-single-number/)
+
+```sql
+select max(num) as num
+from MyNumbers
+where num not in(select num
+from MyNumbers
+group by num
+having count(num) > 1)
+```
+

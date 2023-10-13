@@ -42,3 +42,11 @@ from Orders
 order by cust_id , order_date DESC
 ```
 
+### No.65
+
+[**SQL65** **按照数量和价格排序**](https://www.nowcoder.com/practice/bd05a6684e534bd1bf2d9ebbda475333)
+
+```sql
+select quantity,item_price from OrderItems  order by quantity desc ,item_price desc 
+```
+
