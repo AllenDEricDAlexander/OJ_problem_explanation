@@ -375,3 +375,13 @@ group by num
 having count(num) > 1)
 ```
 
+### 第三十题
+
+[1045. 买下所有产品的客户](https://leetcode.cn/problems/customers-who-bought-all-products/)
+
+```sql
+select customer_id  from Customer group by customer_id  having(count(distinct product_key) = (select count(distinct product_key) from Product))
+```
+
+
+

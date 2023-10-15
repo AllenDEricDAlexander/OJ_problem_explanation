@@ -50,3 +50,21 @@ order by cust_id , order_date DESC
 select quantity,item_price from OrderItems  order by quantity desc ,item_price desc 
 ```
 
+### No.66
+
+[**SQL66** **检查SQL语句**](https://www.nowcoder.com/practice/ba2d42708239429e870fa80db81c07da)
+
+```sql
+SELECT vend_name
+FROM Vendors 
+ORDER by vend_name DESC;
+```
+
+### No.67
+
+[**SQL67** **返回固定价格的产品**](https://www.nowcoder.com/practice/9949bfb933614abe8bd2bc26c129843e)
+
+```sql
+select prod_id,prod_name from Products where prod_price = 9.49
+```
+
