@@ -383,5 +383,18 @@ having count(num) > 1)
 select customer_id  from Customer group by customer_id  having(count(distinct product_key) = (select count(distinct product_key) from Product))
 ```
 
+### 第三十一题
 
+[1731. 每位经理的下属员工数量](https://leetcode.cn/problems/the-number-of-employees-which-report-to-each-employee/)
+
+```sql
+SELECT
+a.employee_id, a.name, COUNT(*) AS reports_count, ROUND(AVG(b.age)) AS average_age
+FROM Employees AS a
+    LEFT OUTER JOIN Employees AS b
+ON a.employee_id = b.reports_to
+WHERE b.employee_id IS NOT NULL
+GROUP BY a.employee_id
+ORDER BY a.employee_id;
+```
 

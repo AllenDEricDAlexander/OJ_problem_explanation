@@ -68,3 +68,31 @@ ORDER by vend_name DESC;
 select prod_id,prod_name from Products where prod_price = 9.49
 ```
 
+### No.68
+
+[**SQL68** **返回更高价格的产品**](https://www.nowcoder.com/practice/f6153be7485448cdb444279dcc105cb8)
+
+```sql
+select prod_id,prod_name from Products where prod_price >= 9
+```
+
+### No.69
+
+[**SQL69** **返回产品并且按照价格排序**](https://www.nowcoder.com/practice/560c94bf434e4e77911982e2d7ca0abb)
+
+```sql
+select prod_name,prod_price from Products  where prod_price <= 6 and prod_price >= 3 order by prod_price
+```
+
+### No.70
+
+[**SQL70** **返回更多的产品**](https://www.nowcoder.com/practice/dc91b7d2de3c4603a55995e83210f605)
+
+```sql
+select distinct order_num from OrderItems where quantity >= 100
+```
+
+
+
+
+
