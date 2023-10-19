@@ -92,7 +92,43 @@ select prod_name,prod_price from Products  where prod_price <= 6 and prod_price 
 select distinct order_num from OrderItems where quantity >= 100
 ```
 
+### No.71
 
+[**SQL71** **检索供应商名称**](https://www.nowcoder.com/practice/c4d520ed6a264ad3900eff95e4195d59)
 
+```sql
+select vend_name from Vendors where vend_country = "USA" and vend_state = "CA"
+```
 
+### No.72
+
+[**SQL72** **检索并列出已订购产品的清单**](https://www.nowcoder.com/practice/674d99a46a96494d8267ae4d162ed459)
+
+```sql
+select order_num ,prod_id,quantity from OrderItems where quantity >= 100 order by prod_id,quantity DESC
+```
+
+### No.73
+
+[**SQL73** **返回所有价格在 3美元到 6美元之间的产品的名称和价格**](https://www.nowcoder.com/practice/e4268b4e044e4b94875c238098d98cf8)
+
+```sql
+select prod_name , prod_price from Products where prod_price >= 3 and prod_price <= 6 order by prod_price
+```
+
+### No.74
+
+[**SQL74** **纠错2**](https://www.nowcoder.com/practice/ec773e81e8084d70bc62fd9012eabae5)
+
+```sql
+SELECT
+    vend_name
+FROM
+    Vendors
+WHERE
+    vend_country = "USA"
+    AND vend_state = "CA"
+ORDER BY
+    vend_name
+```
 

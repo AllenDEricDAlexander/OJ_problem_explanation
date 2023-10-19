@@ -398,3 +398,12 @@ GROUP BY a.employee_id
 ORDER BY a.employee_id;
 ```
 
+### 第三十二题
+
+[1789. 员工的直属部门](https://leetcode.cn/problems/primary-department-for-each-employee/)
+
+```sql
+select employee_id, department_id from Employee where primary_flag='Y' 
+union select employee_id, department_id from Employee group by employee_id having count(department_id)=1
+```
+
