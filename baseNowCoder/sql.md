@@ -132,3 +132,93 @@ ORDER BY
     vend_name
 ```
 
+### No.75
+
+[**SQL75** **检索产品名称和描述（一）**](https://www.nowcoder.com/practice/47e8101cb2b447038effcf5159e6aa7f)
+
+```sql
+select
+    *
+from
+    Products
+where
+    prod_desc like "%toy%"
+```
+
+### No.76
+
+[**SQL76** **检索产品名称和描述（二）**](https://www.nowcoder.com/practice/669913837a7648f9aa0caaf6a88c834f)
+
+```sql
+select
+    *
+from
+    Products
+where
+    instr (prod_desc, "toy") = 0
+order by
+    prod_name asc
+```
+
+```sql
+select
+    prod_name,
+    prod_desc
+from
+    Products
+where
+    prod_desc not like "%toy%"
+order by
+    prod_name asc
+```
+
+```sql
+select
+    prod_name,
+    prod_desc
+from
+    Products
+where
+    locate ("toy", prod_desc) = 0
+order by
+    prod_name asc
+```
+
+### No.77
+
+[**SQL77** **检索产品名称和描述（三）**](https://www.nowcoder.com/practice/4302920bc3da44169a3ac458eb549d01)
+
+```sql
+select
+    prod_name,
+    prod_desc
+from
+    Products
+where
+    prod_desc like "%toy%"
+    and prod_desc like "%carrots %"
+```
+
+```sql
+select prod_name,prod_desc
+from Products
+# where prod_desc like '%toy%' and prod_desc like '%carrots%';#行
+# where prod_desc like '%toy%' and '%carrots%';不行
+where prod_desc like '%carrots%toy%';#行
+# where prod_desc like '%toy%carrots%';不行
+```
+
+### No.78
+
+[**SQL78** **检索产品名称和描述（四）**](https://www.nowcoder.com/practice/a9099944fa9c4cf0b7e406f22ee8c9a0)
+
+```sql
+select
+    prod_name,
+    prod_desc
+from
+    Products
+where
+    prod_desc like "%toy%carrots%"
+```
+

@@ -407,3 +407,20 @@ select employee_id, department_id from Employee where primary_flag='Y'
 union select employee_id, department_id from Employee group by employee_id having count(department_id)=1
 ```
 
+### 第三十三题
+
+[610. 判断三角形](https://leetcode.cn/problems/triangle-judgement/)
+
+```sql
+SELECT 
+    x,
+    y,
+    z,
+    CASE
+        WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes'
+        ELSE 'No'
+    END AS 'triangle'
+FROM
+    triangle;
+```
+
