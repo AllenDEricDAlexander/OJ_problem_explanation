@@ -222,3 +222,62 @@ where
     prod_desc like "%toy%carrots%"
 ```
 
+### No.79
+
+[**SQL79** **别名**](https://www.nowcoder.com/practice/3a4ec448b6f74dc49f886692887aaf84)
+
+```sql
+select
+    vend_id,
+    vend_name as vname,
+    vend_address as vaddress,
+    vend_city as vcity
+from
+    Vendors
+order by
+    vname
+```
+
+### No.80
+
+[**SQL80** **打折**](https://www.nowcoder.com/practice/90bb4ccf41b24f3fa7e5f460ff6ee7cd)
+
+```sql
+select
+    prod_id,
+    prod_price,
+    prod_price * 0.9 as sale_price
+from
+    Products
+```
+
+### No.81
+
+[**SQL81** **顾客登录名**](https://www.nowcoder.com/practice/7cbf5e3082954c21a80fc750ce97350f)
+
+```sql
+select
+    cust_id,
+    cust_name,
+    upper(concat(substring(cust_name,1,2),substring(cust_city,1,3)))  as user_login
+from
+    Customers
+```
+
+### No.82
+
+[**SQL82** **返回 2020 年 1 月的所有订单的订单号和订单日期**](https://www.nowcoder.com/practice/c7734db33854477aa94ae238a3390435)
+
+```sql
+select
+    order_num,
+    order_date
+from
+    Orders
+where
+    month (order_date) = 1
+    and year (order_date) = 2020
+order by
+    order_date
+```
+
