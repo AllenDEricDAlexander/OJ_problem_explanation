@@ -281,3 +281,42 @@ order by
     order_date
 ```
 
+### No.83
+
+[**SQL83** **确定已售出产品的总数**](https://www.nowcoder.com/practice/a271dc25594a4db28f5b957aad07f9ee)
+
+```sql
+select
+    sum(quantity) as items_ordered
+from
+    OrderItems
+```
+
+### No.84
+
+[**SQL84** **确定已售出产品项 BR01 的总数**](https://www.nowcoder.com/practice/a225d8a7bc4f496283fe8e21293e841c)
+
+```sql
+select
+    sum(quantity) as items_ordered
+from
+    OrderItems
+where
+    prod_id = "BR01"
+group by
+    prod_id
+```
+
+### No.85
+
+[**SQL85** **确定 Products 表中价格不超过 10 美元的最贵产品的价格**](https://www.nowcoder.com/practice/19d1f06a58b04258aabe5a5a9934e611)
+
+```sql
+select distinct
+    max(prod_price) as max_price
+from
+    Products
+where
+    prod_price <= 10
+```
+

@@ -432,3 +432,26 @@ FROM
 select distinct l1.num as ConsecutiveNums from Logs as l1, Logs as l2, Logs as l3 where l1.num = l2.num and l2.num = l3.num and l2.id = l1.id +1 and l3.id = l2.id +1;
 ```
 
+### 第三十五题
+
+[1164. 指定日期的产品价格](https://leetcode.cn/problems/product-price-at-a-given-date/)
+
+```sql
+select p1.product_id, ifnull(p2.new_price, 10) as price
+from (
+    select distinct product_id
+    from products
+) as p1
+left join (
+    select product_id, new_price 
+    from products
+    where (product_id, change_date) in (
+        select product_id, max(change_date)
+        from products
+        where change_date <= '2019-08-16'
+        group by product_id
+    )
+) as p2
+on p1.product_id = p2.product_id
+```
+
