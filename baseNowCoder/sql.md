@@ -406,3 +406,97 @@ ORDER BY
     order_num;
 ```
 
+### No.91
+
+[**SQL91** **返回购买价格为 10 美元或以上产品的顾客列表**](https://www.nowcoder.com/practice/827eb2a210c64ccdb8ec28fe4c50c246)
+
+```sql
+select
+    cust_id
+from
+    Orders
+    left join OrderItems on Orders.order_num = OrderItems.order_num
+where
+    OrderItems.item_price >= 10
+// or 
+SELECT DISTINCT
+    cust_id
+FROM
+    Orders
+WHERE
+    order_num IN (
+        SELECT
+            order_num
+        FROM
+            OrderItems
+        WHERE
+            item_price >= 10
+    )
+```
+
+### No.92
+
+[**SQL92** **确定哪些订单购买了 prod_id 为 BR01 的产品（一）**](https://www.nowcoder.com/practice/b692b0174c0444fa9452aee2d082fbbb)
+
+```sql
+select
+    cust_id,
+    order_date
+from
+    Orders as o
+    left join OrderItems as oi on o.order_num = oi.order_num
+where
+    prod_id = "BR01"
+order by
+    order_date
+```
+
+### No.93
+
+[**SQL93** **返回购买 prod_id 为 BR01 的产品的所有顾客的电子邮件（一）**](https://www.nowcoder.com/practice/962b16554fbf4b99a87f4d68020c5bfb)
+
+```sql
+select
+    cust_email
+from
+    Customers as c
+    left join Orders as o on o.cust_id = c.cust_id
+    left join OrderItems as oi on o.order_num = oi.order_num
+where
+    prod_id = "BR01"
+order by
+    order_date
+```
+
+### No.94
+
+[**SQL94** **返回每个顾客不同订单的总金额**](https://www.nowcoder.com/practice/ce313253a81c4947b20e801cd4da7894)
+
+```sql
+select
+    cust_id,
+    sum(item_price * quantity) as total_ordered
+from
+    OrderItems as oi
+    right join Orders as o on o.order_num = oi.order_num
+group by
+    cust_id
+order by
+    total_ordered DESC
+```
+
+### No.95
+
+[**SQL95** **从 Products 表中检索所有的产品名称以及对应的销售总数**](https://www.nowcoder.com/practice/2b289b78de1546f38fd24e17e56f1bec)
+
+```sql
+select
+    prod_name,
+    sum(quantity) as quant_sold
+from
+    OrderItems as oi
+    right join Products as p on p.prod_id = oi.prod_id
+group by
+    prod_name
+```
+
