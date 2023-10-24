@@ -455,3 +455,43 @@ left join (
 on p1.product_id = p2.product_id
 ```
 
+### 第三十六题
+
+[1204. 最后一个能进入巴士的人](https://leetcode.cn/problems/last-person-to-fit-in-the-bus/)
+
+```sql
+#解法1：自定义变量
+select 
+    person_name        
+from 
+(
+    select
+        person_name,      
+        @sum_weight:=@sum_weight+weight as sum_weight    
+    from Queue q,(select @sum_weight:=0)s 
+    order by turn asc
+)s1 
+where sum_weight<=1000 
+order by sum_weight desc 
+limit 1
+
+#解法2：自连接
+SELECT a.person_name
+FROM Queue a, Queue b
+WHERE a.turn >= b.turn
+GROUP BY a.person_id 
+HAVING SUM(b.weight) <= 1000
+ORDER BY a.turn DESC
+LIMIT 
+
+#解法3：窗口函数
+select person_name 
+from
+(
+    select person_name,turn,sum(weight)over(order by turn) as addup_weight
+    from Queue a
+) t where addup_weight<=1000
+order by turn desc
+LIMIT 1
+```
+

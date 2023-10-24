@@ -320,3 +320,89 @@ where
     prod_price <= 10
 ```
 
+### No.86
+
+[**SQL86** **返回每个订单号各有多少行数**](https://www.nowcoder.com/practice/cf1f8d4a514d455aa0468718fb411f41)
+
+```sql
+select
+    order_num,
+    count(order_num) as order_lines
+from
+    OrderItems
+group by
+    order_num
+order by
+    order_lines ASC
+```
+
+### No.87
+
+[**SQL87** **每个供应商成本最低的产品**](https://www.nowcoder.com/practice/f0679d06b50049499691e12a435de8d8)
+
+```sql
+select
+    vend_id,
+    min(prod_price) as cheapest_item
+from
+    Products
+group by
+    vend_id
+order by
+    cheapest_item ASC
+```
+
+### No.88
+
+[**SQL88** **返回订单数量总和不小于100的所有订单的订单号**](https://www.nowcoder.com/practice/ff77e82b59544a15987324e19488aafd)
+
+```sql
+select
+    order_num
+from
+    OrderItems
+group by
+    order_num
+having
+    sum(quantity) >= 100
+order by
+    order_num ASC
+```
+
+### No.89
+
+[**SQL89** **计算总和**](https://www.nowcoder.com/practice/d8a624021183454586da94d280cc8046)
+
+```sql
+select
+    order_num,
+    sum(item_price * quantity) as total_price
+from
+    OrderItems
+group by
+    order_num
+having
+    total_price >= 1000
+order by
+    order_num ASC
+```
+
+### No.90
+
+[**SQL90** **纠错3**](https://www.nowcoder.com/practice/3870c9bca7a4406f899af3e903b8bf51)
+
+```sql
+SELECT
+    order_num,
+    COUNT(*) AS items
+FROM
+    OrderItems
+GROUP BY
+    order_num
+HAVING
+    COUNT(*) >= 3
+ORDER BY
+    items,
+    order_num;
+```
+
