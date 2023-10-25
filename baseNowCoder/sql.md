@@ -676,3 +676,86 @@ order by
     v.vend_id ASC
 ```
 
+### No.106
+
+[**SQL106** **将两个 SELECT 语句结合起来（一）**](https://www.nowcoder.com/practice/a33d5c0ebf434e00b22e2977a5aa3a90)
+
+```sql
+select
+    prod_id,
+    quantity
+from
+    OrderItems
+where
+    quantity = 100
+union all
+select
+    prod_id,
+    quantity
+from
+    OrderItems
+where
+    prod_id like 'BNBG%'
+```
+
+### No.107
+
+[**SQL107** **将两个 SELECT 语句结合起来（二）**](https://www.nowcoder.com/practice/ee9ef82f3d6f44b398aedc2fa71db612)
+
+```sql
+select
+    prod_id,
+    quantity
+from
+    OrderItems
+where
+    prod_id like 'BNBG%'
+    or quantity = 100
+order by
+    prod_id ASC
+```
+
+### No.108
+
+[**SQL108** **组合 Products 表中的产品名称和 Customers 表中的顾客名称**](https://www.nowcoder.com/practice/461077c0ba0f473abecf5ee79c632acd)
+
+```sql
+select
+    prod_name
+from
+    Products
+union all
+select
+    cust_name as prod_name
+from
+    Customers
+order by
+    prod_name ASC
+```
+
+### No.109
+
+[**SQL109** **纠错4**](https://www.nowcoder.com/practice/bde1451b91084c8cab467387a0e0969c)
+
+```sql
+SELECT
+    cust_name,
+    cust_contact,
+    cust_email
+FROM
+    Customers
+WHERE
+    cust_state = 'MI'
+UNION all
+SELECT
+    cust_name,
+    cust_contact,
+    cust_email
+FROM
+    Customers
+WHERE
+    cust_state = 'IL'
+ORDER BY
+    cust_name;
+```
+
