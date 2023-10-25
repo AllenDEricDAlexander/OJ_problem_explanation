@@ -597,3 +597,82 @@ order by
     total_price
 ```
 
+### No.101
+
+[**SQL101** **检索每个顾客的名称和所有的订单号（一）**](https://www.nowcoder.com/practice/0a876520bd314505b787648e331f5e81)
+
+```sql
+select
+    cust_name,
+    order_num
+from
+    Customers as c
+    inner join Orders as o on c.cust_id = o.cust_id
+order by
+    cust_name
+```
+
+### No.102
+
+[**SQL102** **检索每个顾客的名称和所有的订单号（二）**](https://www.nowcoder.com/practice/4e73c4e770b941c9abc60814601ed498)
+
+```sql
+select
+    c.cust_name,
+    o.order_num
+from
+    Customers as c
+    left join Orders as o on c.cust_id = o.cust_id
+order by
+    cust_name ASC
+```
+
+### No.103
+
+[**SQL103** **返回产品名称和与之相关的订单号**](https://www.nowcoder.com/practice/c369a759436a4e8b80baa9c39e9adf18)
+
+```sql
+select
+    prod_name,
+    order_num
+from
+    Products as p
+    left join OrderItems as oi on p.prod_id = oi.prod_id
+order by
+    prod_name ASC
+```
+
+### No.104
+
+[**SQL104** **返回产品名称和每一项产品的总订单数**](https://www.nowcoder.com/practice/1c64fd9048364a58a8ffa541720359a4)
+
+```sql
+select
+    p.prod_name,
+    count(oi.order_num) as orders
+from
+    Products as p
+    left join OrderItems as oi on p.prod_id = oi.prod_id
+group by
+    p.prod_name
+order by
+    p.prod_name ASC
+```
+
+### No.105
+
+[**SQL105** **列出供应商及其可供产品的数量**](https://www.nowcoder.com/practice/17f22851cf204019b51a36761a3afc79)
+
+```sql
+select
+    v.vend_id as vend_id,
+    count(p.prod_id) as prod_id
+from
+    Vendors as v
+    left join Products as p on v.vend_id = p.vend_id
+group by
+    v.vend_id
+order by
+    v.vend_id ASC
+```
+
