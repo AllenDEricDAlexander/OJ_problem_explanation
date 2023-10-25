@@ -759,3 +759,45 @@ ORDER BY
     cust_name;
 ```
 
+### No.110
+
+[**SQL110** **插入记录（一）**](https://www.nowcoder.com/practice/5d2a42bfaa134479afb9fffd9eee970c)
+
+```sql
+insert into
+    exam_record (uid,exam_id,start_time,submit_time,score)
+values
+    (1001,9001,'2021-9-1 22:11:12','2021-9-1 23:01:12',90),
+    (1002, 9002, '2021-09-04 07:01:02', NULL, NULL);
+```
+
+### No.111
+
+[**SQL111** **插入记录（二）**](https://www.nowcoder.com/practice/9681abf28745468c8adacb3b029a18ce)
+
+```sql
+insert into
+    exam_record_before_2021 (uid, exam_id, start_time, submit_time, score)
+select
+    uid,
+    exam_id,
+    start_time,
+    submit_time,
+    score
+from
+    exam_record
+where
+    YEAR (submit_time) < '2021'
+```
+
+### No.112
+
+[**SQL112** **插入记录（三）**](https://www.nowcoder.com/practice/978bcee6530a430fb0be716423d84082)
+
+```sql
+DELETE FROM examination_info
+WHERE exam_id=9003;
+INSERT INTO examination_info
+VALUES(NULL,9003, 'SQL','hard', 90, '2021-01-01 00:00:00')
+```
+
