@@ -500,3 +500,100 @@ group by
     prod_name
 ```
 
+### No.96
+
+[**SQL96** **返回顾客名称和相关订单号**](https://www.nowcoder.com/practice/7e7bc361db6a4cb6aa35eefccfe75364)
+
+```sql
+select
+    cust_name,
+    order_num
+from
+    Customers as c
+    inner join Orders as o on c.cust_id = o.cust_id
+order by
+    cust_name,order_num
+
+select
+    cust_name,
+    order_num
+from
+    Customers as c,
+    Orders as o
+where
+    c.cust_id = o.cust_id
+order by
+    cust_name,order_num
+
+```
+
+### No.97
+
+[**SQL97** **返回顾客名称和相关订单号以及每个订单的总价**](https://www.nowcoder.com/practice/4dda66e385c443d8a11570a70807d250)
+
+```sql
+select
+    cust_name,
+    o.order_num,
+    (oi.quantity * oi.item_price) asOrderTotal
+from
+    Customers as c
+    left join Orders as o on c.cust_id = o.cust_id
+    left join OrderItems as oi on oi.order_num = o.order_num
+order by
+    cust_name,
+    order_num
+```
+
+### No.98
+
+[**SQL98** **确定哪些订单购买了 prod_id 为 BR01 的产品（二）**](https://www.nowcoder.com/practice/999aa31a9a504c60baa088d90d82e64d)
+
+```sql
+select
+    cust_id,
+    order_date
+from
+    Orders as o
+    left join OrderItems as oi on o.order_num = oi.order_num
+where
+    oi.prod_id = "BR01"
+order by
+    order_date
+```
+
+### No.99
+
+[**SQL99** **返回购买 prod_id 为 BR01 的产品的所有顾客的电子邮件（二）**](https://www.nowcoder.com/practice/c7aa73afc41f4dfc925baebdd175c345)
+
+```sql
+select
+    cust_email
+from
+    OrderItems as oi
+    inner join Orders as o on oi.order_num = o.order_num
+    inner join Customers as c on c.cust_id = o.cust_id
+where
+    oi.prod_id = "BR01"
+```
+
+### No.100
+
+[**SQL100** **确定最佳顾客的另一种方式（二）**](https://www.nowcoder.com/practice/b5766f970ae64ac7944f37f5b47107aa)
+
+```sql
+select
+    c.cust_name,
+    sum(oi.item_price * oi.quantity) as total_price
+from
+    Customers as c
+    inner join Orders as o on c.cust_id = o.cust_id
+    inner join OrderItems as oi on oi.order_num = o.order_num
+group by
+    cust_name
+having
+    total_price >= 1000
+order by
+    total_price
+```
+
