@@ -801,3 +801,76 @@ INSERT INTO examination_info
 VALUES(NULL,9003, 'SQL','hard', 90, '2021-01-01 00:00:00')
 ```
 
+### No.113
+
+[**SQL113** **更新记录（一）**](https://www.nowcoder.com/practice/bfe8ad2bddc540fc911614aa648868b3)
+
+```sql
+update
+    examination_info
+SET
+    tag = "Python"
+where
+    tag = "PYTHON"
+```
+
+### No.114
+
+[**SQL114** **更新记录（二）**](https://www.nowcoder.com/practice/0c2e81c6b62e4a0f848fa7693291defc)
+
+```sql
+update
+    exam_record
+set
+    submit_time = '2099-01-01 00:00:00',
+    score = 0
+where
+    start_time < '2021-09-01 00:00:00'
+    AND score IS NULL;
+```
+
+### No.115
+
+[**SQL115** **删除记录（一）**](https://www.nowcoder.com/practice/d331359c5ca04a3b87f06b97da42159c)
+
+```sql
+delete from exam_record 
+where score < 60 and  timestampdiff(
+        MINUTE,
+        start_time,
+        submit_time
+    )<5
+```
+
+### No.116
+
+[**SQL116** **删除记录（二）**](https://www.nowcoder.com/practice/964c9f7fffbb4ab18b507cfed4111b4a)
+
+```sql
+delete from
+    exam_record
+where
+    submit_time = null
+    OR TIMESTAMPDIFF (MINUTE, start_time, submit_time) < 5
+ORDER BY
+    start_time
+LIMIT
+    3;
+```
+
+### No.117
+
+[**SQL117** **删除记录（三）**](https://www.nowcoder.com/practice/3abefc6fc73e4f219dad0ab66e6b1e3f)
+
+```sql
+drop table if EXISTS exam_record;
+CREATE TABLE IF NOT EXISTS exam_record (
+id int PRIMARY KEY AUTO_INCREMENT COMMENT '自增ID',
+uid int NOT NULL COMMENT '用户ID',
+exam_id int NOT NULL COMMENT '试卷ID',
+start_time datetime NOT NULL COMMENT '开始时间',
+submit_time datetime COMMENT '提交时间',
+score tinyint COMMENT '得分'
+)CHARACTER SET utf8 COLLATE utf8_general_ci;
+```
+
