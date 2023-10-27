@@ -511,3 +511,14 @@ from Accounts
 where income>50000
 ```
 
+### 第三十八题
+
+[1978. 上级经理已离职的公司员工](https://leetcode.cn/problems/employees-whose-manager-left-the-company/)
+
+```sql
+select employee_id   from Employees
+where salary <30000
+and manager_id not in (select employee_id from Employees)
+order by 1
+```
+

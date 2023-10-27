@@ -874,3 +874,89 @@ score tinyint COMMENT '得分'
 )CHARACTER SET utf8 COLLATE utf8_general_ci;
 ```
 
+### No.118
+
+[**SQL118** **创建一张新表**](https://www.nowcoder.com/practice/a61ee5519d14444aa99e530309a8e043)
+
+```sql
+CREATE TABLE
+    IF NOT EXISTS user_info_vip (
+        id int PRIMARY KEY AUTO_INCREMENT COMMENT '自增ID',
+        uid int UNIQUE NOT NULL COMMENT '用户ID',
+        nick_name varchar(64) COMMENT '昵称',
+        achievement int DEFAULT 0 COMMENT '成就值',
+        `level` int COMMENT '用户等级',
+        job varchar(32) COMMENT '职业方向',
+        register_time datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间'
+    ) CHARACTER
+SET
+    utf8 COLLATE utf8_general_ci;
+```
+
+### No.119
+
+[**SQL119** **修改表**](https://www.nowcoder.com/practice/d08209df6f464cebafda5dfd5de03fce)
+
+```sql
+alter table
+    user_info add school varchar(15) after level;
+
+alter table
+    user_info change job profession varchar(10);
+
+alter table
+    user_info modify achievement int (11) default 0;
+```
+
+### No.120
+
+[**SQL120** **删除表**](https://www.nowcoder.com/practice/df2f634a53324bbd9369fe6723fedc49)
+
+```sql
+drop table
+    if EXISTS exam_record_2011;
+
+drop table
+    if EXISTS exam_record_2012;
+
+drop table
+    if EXISTS exam_record_2013;
+
+drop table
+    if EXISTS exam_record_2014;
+```
+
+### No.121
+
+[**SQL121** **创建索引**](https://www.nowcoder.com/practice/f2ea9ccf33c740d58576608940981807)
+
+```sql
+CREATE INDEX idx_duration ON examination_info (duration);
+
+CREATE UNIQUE INDEX uniq_idx_exam_id ON examination_info (exam_id);
+
+CREATE FULLTEXT INDEX full_idx_tag ON examination_info (tag);
+```
+
+### No.122
+
+[**SQL122** **删除索引**](https://www.nowcoder.com/practice/4963f6d63dde48d787aaa2b43460fb4b)
+
+```sql
+alter table
+    examination_info
+drop
+    index uniq_idx_exam_id;
+
+alter table
+    examination_info
+drop
+    index full_idx_tag;
+    
+DROP
+    INDEX uniq_idx_exam_id ON examination_info;
+
+DROP
+    INDEX full_idx_tag ON examination_info;
+```
+
