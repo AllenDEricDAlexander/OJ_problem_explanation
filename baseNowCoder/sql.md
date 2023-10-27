@@ -960,3 +960,156 @@ DROP
     INDEX full_idx_tag ON examination_info;
 ```
 
+### No.123
+
+[**SQL123** **SQL类别高难度试卷得分的截断平均值**](https://www.nowcoder.com/practice/a690f76a718242fd80757115d305be45)
+
+```sql
+select
+    ei.tag,
+    ei.difficulty,
+    round(
+        (sum(er.score) - max(er.score) - min(er.score)) / (count(score) - 2),
+        1
+    ) as clip_avg_score
+from
+    exam_record as er
+    inner join examination_info as ei on er.exam_id = ei.exam_id
+    and ei.tag = "SQL"
+    and ei.difficulty = "hard"
+group by
+    er.exam_id
+```
+
+### No.124
+
+[**SQL124** **统计作答次数**](https://www.nowcoder.com/practice/45a87639110841b6950ef6a12d20175f)
+
+```sql
+select
+    count(distinct id) as total_pv,
+    count(submit_time) as complete_pv,
+    count(
+        distinct exam_id
+        and score is not null
+    ) as complete_exam_cnt
+from
+    exam_record
+```
+
+### No.125
+
+[**SQL125** **得分不小于平均分的最低分**](https://www.nowcoder.com/practice/3de23f1204694e74b7deef08922805b2)
+
+```sql
+select
+    e1.score min_score_over_avg
+from
+    exam_record e1
+    left join examination_info e2 on e1.exam_id = e2.exam_id
+where
+    e2.tag = 'SQL'
+    and e1.score >= (
+        select
+            avg(score)
+        from
+            exam_record
+        where
+            exam_id in (
+                select
+                    exam_id
+                from
+                    examination_info
+                where
+                    tag = 'SQL'
+            )
+    )
+order by
+    min_score_over_avg
+limit
+    1
+```
+
+### No.126
+
+[**SQL126** **平均活跃天数和月活人数**](https://www.nowcoder.com/practice/9e2fb674b58b4f60ac765b7a37dde1b9)
+
+```sql
+select
+    date_format (submit_time, '%Y%m') as month,
+    round(
+        (
+            count(distinct uid, date_format (submit_time, '%y%m%d'))
+        ) / count(distinct uid),
+        2
+    ) as avg_active_days,
+    count(distinct uid) mau
+from
+    exam_record
+where
+    year (submit_time) = 2021
+group by
+    month
+```
+
+### No.127
+
+[**SQL127** **月总刷题数和日均刷题数**](https://www.nowcoder.com/practice/f6b4770f453d4163acc419e3d19e6746)
+
+```sql
+select
+    date_format (submit_time, '%Y%m') submit_month,
+    any_value (count(question_id)) month_q_cnt,
+    any_value (
+        round(
+            count(question_id) / day (LAST_DAY (submit_time)),
+            3
+        )
+    ) avg_day_q_cnt
+from
+    practice_record
+where
+    date_format (submit_time, '%Y') = '2021'
+group by
+    submit_month
+union all
+select
+    '2021汇总' as submit_month,
+    count(question_id) month_q_cnt,
+    round(count(id) / 31, 3) avg_day_q_cnt
+from
+    practice_record
+where
+    date_format (submit_time, '%Y') = '2021'
+order by
+    submit_month;
+
+```
+
+### No.128
+
+[**SQL128** **未完成试卷数大于1的有效用户**](https://www.nowcoder.com/practice/46cb7a33f7204f3ba7f6536d2fc04286)
+
+```sql
+select
+    er.uid,
+    sum(if (submit_time is null, 1, 0)) as incomplete_cnt,
+    sum(if (submit_time is not null, 1, 0)) as complete_cnt,
+    group_concat (
+        distinct concat_ws (':', date (start_time), tag) separator ';'
+    ) as detail
+from
+    exam_record er
+    left join examination_info ei on er.exam_id = ei.exam_id
+where
+    year (start_time) = 2021
+group by
+    er.uid
+having
+    complete_cnt >= 1
+    and incomplete_cnt < 5
+    and incomplete_cnt > 1
+order by
+    incomplete_cnt desc;
+```
+
