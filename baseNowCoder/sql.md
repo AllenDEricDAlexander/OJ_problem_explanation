@@ -1113,3 +1113,80 @@ order by
     incomplete_cnt desc;
 ```
 
+### No.129
+
+[**SQL129** **月均完成试卷数不小于3的用户爱作答的类别**](https://www.nowcoder.com/practice/b1d13efcfa0c4ecea517afbdb9090845)
+
+```sql
+SELECT
+    b.tag,
+    count(*) tag_cnt
+FROM
+    exam_record a
+    LEFT JOIN examination_info b ON a.exam_id = b.exam_id
+WHERE
+    a.uid IN (
+        SELECT
+            uid
+        FROM
+            exam_record
+        WHERE
+            submit_time IS NOT NULL
+        GROUP BY
+            uid,
+            DATE_FORMAT (submit_time, '%Y%m')
+        HAVING
+            COUNT(submit_time) > 2
+    )
+GROUP BY
+    b.tag
+ORDER BY
+    tag_cnt DESC
+```
+
+### No.130
+
+[**SQL130** **试卷发布当天作答人数和平均分**](https://www.nowcoder.com/practice/5b58e89556dc4153a79d8cf8c08ba499)
+
+```sql
+select
+    er.exam_id,
+    count(distinct er.uid) as uv,
+    round(avg(score), 1) as avg_score
+from
+    exam_record as er
+    left join examination_info as ei on er.exam_id = ei.exam_id
+    left join user_info as ui on ui.uid = er.uid
+where
+    tag = 'SQL'
+    and level > 5
+    and date_format (submit_time, '%Y%m%d') = date_format (release_time, '%Y%m%d')
+group by
+    er.exam_id
+order by
+    uv DESC,
+    avg_score ASC
+```
+
+### No.131
+
+[**SQL131** **作答试卷得分大于过80的人的用户等级分布**](https://www.nowcoder.com/practice/5bc77e3a3c374ad6a92798f0ead4c744)
+
+```sql
+select
+    level,
+    count(distinct u_i.uid) as level_cnt
+from
+    exam_record e_r
+    join examination_info e_i on e_r.exam_id = e_i.exam_id
+    join user_info u_i on e_r.uid = u_i.uid
+where
+    tag = 'SQL'
+    and score > 80
+group by
+    level
+order by
+    level_cnt desc,
+    level desc
+```
+

@@ -522,3 +522,12 @@ and manager_id not in (select employee_id from Employees)
 order by 1
 ```
 
+### 第三十九题
+
+[626. 换座位](https://leetcode.cn/problems/exchange-seats/)
+
+```sql
+select rank() over (order by (id - 1) ^ 1) id, student
+from Seat
+```
+
