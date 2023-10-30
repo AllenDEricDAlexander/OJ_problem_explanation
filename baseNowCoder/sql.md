@@ -1190,3 +1190,64 @@ order by
     level desc
 ```
 
+### 132
+
+[**SQL132** **每个题目和每份试卷被作答的人数和次数**](https://www.nowcoder.com/practice/203d0aed8928429a8978185d9a03babc)
+
+```sql
+select
+    exam_id as tid,
+    count(distinct uid) as uv,
+    count(exam_id) as pv
+from
+    exam_record
+group by
+    tid
+union all
+select
+    question_id as tid,
+    count(distinct uid) as uv,
+    count(question_id) as pv
+from
+    practice_record
+group by
+    tid
+ORDER BY
+    LEFT (tid, 1) DESC,
+    uv DESC,
+    pv DESC
+```
+
+### No.133
+
+[**SQL133** **分别满足两个活动的人**](https://www.nowcoder.com/practice/a126cea91d7045e399b8ecdcadfb326f)
+
+```sql
+select
+    uid,
+    'activity1' as activity
+from
+    exam_record
+where
+    year (submit_time) = 2021
+group by
+    uid
+having
+    min(score) >= 85
+union all
+select distinct
+    uid,
+    'activity2' as activity
+from
+    exam_record e_r
+    join examination_info e_i on e_r.exam_id = e_i.exam_id
+where
+    year (e_r.submit_time) = 2021
+    and e_i.difficulty = 'hard'
+    and e_r.score > 80
+    and timestampdiff (minute, e_r.start_time, e_r.submit_time) * 2 < e_i.duration
+order by
+    uid
+
+```
+

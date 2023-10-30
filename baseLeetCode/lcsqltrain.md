@@ -531,3 +531,30 @@ select rank() over (order by (id - 1) ^ 1) id, student
 from Seat
 ```
 
+### 第四十题
+
+[1341. 电影评分](https://leetcode.cn/problems/movie-rating/)
+
+```sql
+(
+    SELECT t1.name AS results
+        FROM Users t1
+    LEFT JOIN MovieRating t2
+        ON t1.user_id = t2.user_id
+    GROUP BY t2.user_id
+    ORDER BY COUNT(movie_id) DESC, name ASC LIMIT 1
+)
+
+UNION ALL
+
+(
+    SELECT title
+        FROM MovieRating t1
+    LEFT JOIN Movies t2
+        ON t1.movie_id = t2.movie_id
+    WHERE LEFT(t1.created_at, 7) = '2020-02'
+    GROUP BY t1.movie_id
+    ORDER BY AVG(rating) DESC, title ASC LIMIT 1
+)
+```
+
