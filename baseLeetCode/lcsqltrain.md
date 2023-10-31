@@ -558,3 +558,44 @@ UNION ALL
 )
 ```
 
+### 第四十一题
+
+[1321. 餐馆营业额变化增长](https://leetcode.cn/problems/restaurant-growth/)
+
+```sql
+select
+    visited_on,
+    amount,
+    average_amount
+from
+    (
+        select distinct
+            visited_on,
+            sum(amount) over (
+                order by
+                    visited_on range interval 6 day preceding
+            ) amount,
+            round(
+                sum(amount) over (
+                    order by
+                        visited_on range interval 6 day preceding
+                ) / 7,
+                2
+            ) average_amount
+        from
+            Customer
+    ) t
+where
+    datediff (
+        visited_on,
+        (
+            select
+                min(visited_on)
+            from
+                Customer
+        )
+    ) >= 6
+order by
+    visited_on;
+```
+

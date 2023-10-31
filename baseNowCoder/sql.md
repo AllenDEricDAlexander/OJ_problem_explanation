@@ -1190,7 +1190,7 @@ order by
     level desc
 ```
 
-### 132
+### No.132
 
 [**SQL132** **每个题目和每份试卷被作答的人数和次数**](https://www.nowcoder.com/practice/203d0aed8928429a8978185d9a03babc)
 
@@ -1248,6 +1248,114 @@ where
     and timestampdiff (minute, e_r.start_time, e_r.submit_time) * 2 < e_i.duration
 order by
     uid
+```
 
+### No.134
+
+[**SQL134** **满足条件的用户的试卷完成数和题目练习数**](https://www.nowcoder.com/practice/5c03f761b36046649ee71f05e1ceecbf)
+
+```sql
+SELECT
+    uid,
+    exam_cnt,
+    IFNULL (question_cnt, 0) as question_cnt
+FROM
+    (
+        SELECT
+            uid
+        FROM
+            exam_record
+            JOIN examination_info USING (exam_id)
+            JOIN user_info USING (uid)
+        WHERE
+            difficulty = 'hard'
+            and tag = 'SQL'
+            and `level` = 7
+        GROUP BY
+            uid
+        HAVING
+            AVG(score) > 80
+    ) as t_user_id
+    JOIN (
+        SELECT
+            uid,
+            count(exam_id) as exam_cnt
+        FROM
+            exam_record
+        WHERE
+            YEAR (submit_time) = 2021
+            AND submit_time IS NOT NULL
+        GROUP BY
+            uid
+    ) as t_exam_cnt USING (uid)
+    LEFT JOIN (
+        SELECT
+            uid,
+            count(question_id) as question_cnt
+        FROM
+            practice_record
+        WHERE
+            YEAR (submit_time) = 2021
+        GROUP BY
+            uid
+    ) as t_question_cnt USING (uid)
+ORDER BY
+    exam_cnt,
+    question_cnt desc;
+```
+
+### No.135
+
+[**SQL135** **每个6/7级用户活跃情况**](https://www.nowcoder.com/practice/a32c7c8590324c96950417c57fa6ecd1)
+
+```sql
+select
+    u_i.uid as uid,
+    count(distinct act_month) as act_month_total,
+    count(
+        distinct case
+            when year (act_time) = 2021 then act_day
+        end
+    ) as act_days_2021,
+    count(
+        distinct case
+            when year (act_time) = 2021
+            and tag = 'exam' then act_day
+        end
+    ) as act_days_2021_exam,
+    count(
+        distinct case
+            when year (act_time) = 2021
+            and tag = 'question' then act_day
+        end
+    ) as act_days_2021_question
+from
+    user_info u_i
+    left join (
+        select
+            uid,
+            start_time as act_time,
+            date_format (start_time, '%Y%m') as act_month,
+            date_format (start_time, '%Y%m%d') as act_day,
+            'exam' as tag
+        from
+            exam_record
+        union all
+        select
+            uid,
+            submit_time as act_time,
+            date_format (submit_time, '%Y%m') as act_month,
+            date_format (submit_time, '%Y%m%d') as act_day,
+            'question' as tag
+        from
+            practice_record
+    ) exam_and_practice on exam_and_practice.uid = u_i.uid
+where
+    u_i.level >= 6
+group by
+    uid
+order by
+    act_month_total desc,
+    act_days_2021 desc
 ```
 
