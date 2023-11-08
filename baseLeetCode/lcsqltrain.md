@@ -599,3 +599,19 @@ order by
     visited_on;
 ```
 
+### 第四十二题
+
+[602. 好友申请 II ：谁有最多的好友](https://leetcode.cn/problems/friend-requests-ii-who-has-the-most-friends/)
+
+```sql
+select id, num
+from (select requester_id id, count(*) num, row_number() over (order by count(*) desc) rn
+      from (select requester_id, accepter_id
+            from RequestAccepted
+            union
+            select accepter_id, requester_id
+            from RequestAccepted) as t1
+      group by requester_id) as t2
+where rn = 1
+```
+

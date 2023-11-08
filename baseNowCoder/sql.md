@@ -1359,3 +1359,36 @@ order by
     act_days_2021 desc
 ```
 
+### No.136
+
+[**SQL136** **每类试卷得分前3名**](https://www.nowcoder.com/practice/255aa1863fe14aa88694c09ebbc1dbca)
+
+```sql
+SELECT
+    tag,
+    uid,
+    ranking
+FROM
+    (
+        SELECT
+            b.tag,
+            a.uid,
+            ROW_NUMBER() OVER (
+                PARTITION BY
+                    tag
+                ORDER BY
+                    max(a.score) DESC,
+                    min(a.score) DESC,
+                    a.uid DESC
+            ) ranking
+        FROM
+            exam_record a
+            LEFT JOIN examination_info b ON a.exam_id = b.exam_id
+        GROUP BY
+            b.tag,
+            a.uid
+    ) t1
+WHERE
+    ranking <= 3
+```
+
