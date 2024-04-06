@@ -1,4 +1,3 @@
-# sql_train
-High frequency SQL interview questions
+# OJ
 
-base on MySQL
+记录一些OJ做题的题解。
